@@ -217,23 +217,22 @@ get '/computerwins' do
   end
 end
 
+#Captura informacion mediante Post
 post '/' do
+  #Cuando un usuario sale de la sesion
   if params[:logout]
     @usuario = nil
     session["usuario"] = nil
     session.clear
   else
     nick = params[:usuario]
-    nick = nick["username"]
+    #nick = nick["username"]
     u = Usuario.first(:username => "#{nick}" )
     if u == nil
       usuario = Usuario.create(params[:usuario])
       usuario.save
       Ejem = params[:usuario]
-      pp params[:usuario]
       @usuario = Ejem["username"]
-      p "ATENCION!!!!!!!!"
-      pp @usuario
       session["usuario"] = @usuario
     else
       p "Ya existe un usuario con ese nick!"
